@@ -1,5 +1,5 @@
 import { SayArguments, View } from "@slack/bolt"
-import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_INIT, OPEN_SETUP_NEW_CHANNEL, SELECT_CHANNEL_ACTION } from "./setupAction";
+import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_INIT, OPEN_SETUP_NEW_CHANNEL } from "./setupAppAction";
 
 export const APP_SETUP_MESSAGE = {
     "blocks": [
@@ -70,6 +70,7 @@ export const APP_SETUP_NEW_CHANNEL = {
 		},
 		{
 			"type": "input",
+            "optional": true,
 			"element": {
 				"type": "multi_users_select",
 				"placeholder": {
@@ -81,7 +82,7 @@ export const APP_SETUP_NEW_CHANNEL = {
 			},
 			"label": {
 				"type": "plain_text",
-				"text": "Add people to channels (optional)",
+				"text": "Add people to channels",
 				"emoji": true
 			}
 		},
@@ -121,19 +122,22 @@ export const APP_SETUP_EXISTING_CHANNEL = {
 		"emoji": true
 	},
 	"blocks": [
-		{
-			"type": "actions",
-			"elements": [
-				{
-					"type": "channels_select",
-					"placeholder": {
-						"type": "plain_text",
-						"text": "Select a channel",
-						"emoji": true
-					},
-                    "action_id": SELECT_CHANNEL_ACTION
-				}
-			]
+        {
+			"type": "input",
+			"element": {
+				"type": "channels_select",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Choose channel",
+					"emoji": false
+				},
+				"action_id": "multi_users_select-action"
+			},
+			"label": {
+				"type": "plain_text",
+				"text": "Select an existing channnel",
+				"emoji": true
+			}
 		},
 		{
 			"type": "section",
