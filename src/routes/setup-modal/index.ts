@@ -1,7 +1,8 @@
 import { App } from '@slack/bolt';
 import { StringIndexed } from '@slack/bolt/dist/types/helpers';
-import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_INIT, OPEN_SETUP_NEW_CHANNEL } from '../../constants/setupAppAction';
-import { APP_SETUP_NEW_CHANNEL, APP_SETUP_EXISTING_CHANNEL } from '../../constants/setupAppBlockUI';
+import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_INIT, OPEN_SETUP_NEW_CHANNEL } from '../../constants/slackActions';
+import { APP_SETUP_NEW_CHANNEL, APP_SETUP_EXISTING_CHANNEL } from './constants/setupAppBlockUI';
+import { SUBMIT_SETUP_EXISTING_CHANNEL, SUBMIT_SETUP_NEW_CHANNEL } from '../../constants/slackViews';
 
 const setupModal = (app: App<StringIndexed>) => {
     app.action(OPEN_SETUP_INIT, async ({ ack, client, body }) => {
@@ -20,6 +21,18 @@ const setupModal = (app: App<StringIndexed>) => {
         await ack();
         const bodyData = body as { view: { id: string} };
         await client.views.update({ view: APP_SETUP_NEW_CHANNEL, view_id: bodyData.view.id });
+    });
+
+    app.view(SUBMIT_SETUP_NEW_CHANNEL, async ({ ack, body, view, client, logger }) => {
+        await ack();
+        const stateValues =  body.view.state.values;
+        console.log('SUBMIT_NEW_CHANNEL', JSON.stringify(stateValues));
+    });
+
+    app.view(SUBMIT_SETUP_EXISTING_CHANNEL, async ({ ack, body, view, client, logger }) => {
+        await ack();
+        const stateValues =  body.view.state.values;
+        console.log('SUBMIT_EXISTING_CHANNEL', JSON.stringify(stateValues));
     });
 }
 

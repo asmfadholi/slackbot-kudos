@@ -1,5 +1,6 @@
 import { SayArguments, View } from "@slack/bolt"
-import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_INIT, OPEN_SETUP_NEW_CHANNEL } from "./setupAppAction";
+import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_INIT, OPEN_SETUP_NEW_CHANNEL } from "../../../constants/slackActions";
+import { SUBMIT_SETUP_EXISTING_CHANNEL, SUBMIT_SETUP_NEW_CHANNEL } from "../../../constants/slackViews";
 
 export const APP_SETUP_MESSAGE = {
     "blocks": [
@@ -7,7 +8,7 @@ export const APP_SETUP_MESSAGE = {
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "Welcome to Heykudo on Slack! 🎉 \nI'm Heykudo and I'm here to help you set up Heykudo. To get started, we'll need to add Heykudo to a Slack channel."
+                "text": "*Welcome to Heykudo on Slack! 🎉* \n I'm Heykudo and I'm here to help you set up Heykudo. To get started, we'll need to add Heykudo to a Slack channel."
             }
         },
         {
@@ -31,6 +32,7 @@ export const APP_SETUP_MESSAGE = {
 
 export const APP_SETUP_NEW_CHANNEL = {
 	"type": "modal",
+	"callback_id": SUBMIT_SETUP_NEW_CHANNEL,
 	"title": {
 		"type": "plain_text",
 		"text": "Start Heykudo Channel",
@@ -49,7 +51,9 @@ export const APP_SETUP_NEW_CHANNEL = {
 	"blocks": [
 		{
 			"type": "input",
+			"block_id": "channel_name",
 			"element": {
+				"action_id": "channel_name_action",
                 "max_length": 73,
 				"type": "plain_text_input",
                 "initial_value": "#Heykudo"
@@ -71,6 +75,7 @@ export const APP_SETUP_NEW_CHANNEL = {
 		{
 			"type": "input",
             "optional": true,
+			"block_id": "user_ids",
 			"element": {
 				"type": "multi_users_select",
 				"placeholder": {
@@ -78,7 +83,7 @@ export const APP_SETUP_NEW_CHANNEL = {
 					"text": "select people in the channels",
 					"emoji": true
 				},
-				"action_id": "multi_users_select-action"
+				"action_id": "user_ids_action"
 			},
 			"label": {
 				"type": "plain_text",
@@ -96,7 +101,6 @@ export const APP_SETUP_NEW_CHANNEL = {
 						"text": "Use existing channel instead",
 						"emoji": true
 					},
-					"value": 'open-11',
 					"action_id": OPEN_SETUP_EXISTING_CHANNEL
 				}
 			]
@@ -116,6 +120,7 @@ export const APP_SETUP_EXISTING_CHANNEL = {
 		"emoji": true
 	},
 	"type": "modal",
+	"callback_id": SUBMIT_SETUP_EXISTING_CHANNEL,
 	"close": {
 		"type": "plain_text",
 		"text": "Cancel",
@@ -124,6 +129,7 @@ export const APP_SETUP_EXISTING_CHANNEL = {
 	"blocks": [
         {
 			"type": "input",
+			"block_id": "channel",
 			"element": {
 				"type": "channels_select",
 				"placeholder": {
@@ -131,7 +137,7 @@ export const APP_SETUP_EXISTING_CHANNEL = {
 					"text": "Choose channel",
 					"emoji": false
 				},
-				"action_id": "multi_users_select-action"
+				"action_id": "channel_action"
 			},
 			"label": {
 				"type": "plain_text",
@@ -156,7 +162,6 @@ export const APP_SETUP_EXISTING_CHANNEL = {
 						"text": "Select new channel instead",
 						"emoji": true
 					},
-					"value": "click_me_123",
 					"action_id": OPEN_SETUP_NEW_CHANNEL
 				}
 			]

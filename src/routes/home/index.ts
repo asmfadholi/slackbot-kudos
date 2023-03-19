@@ -1,18 +1,20 @@
 import { App } from '@slack/bolt';
 import { StringIndexed } from '@slack/bolt/dist/types/helpers';
-import setupModal from './components/setup-modal';
-import { HOME_OPENED } from './constants/homeAppEvent';
-import { APP_SETUP_MESSAGE } from './constants/setupAppBlockUI';
+import { HOME_OPENED } from '../../constants/slackEvents';
+import { APP_MESSAGE_TAB } from './constants/homeBlockUI';
 
-const homePage = (app: App<StringIndexed>) => {
-    setupModal(app);
+const homeApp = (app: App<StringIndexed>) => {
 
     app.event(HOME_OPENED, async ({ body, say }) => {
-        const isTabMessage = body.event.tab === 'messages';
+        const tab = body.event.tab;
+        const isTabMessage = tab === 'messages';
+        const isTabHome = tab === 'home';
         if (isTabMessage) {
-            await say(APP_SETUP_MESSAGE);
+            await say(APP_MESSAGE_TAB);
+        } else if (isTabHome) {
+            console.log('isTabHome');
         }
     });
 }
 
-export default homePage;
+export default homeApp;

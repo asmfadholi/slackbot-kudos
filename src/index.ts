@@ -2,7 +2,8 @@ import { App } from '@slack/bolt';
 import * as dotenv from 'dotenv';
 
 // routes
-import homePage from './routes/home';
+import homeApp from './routes/home';
+import setupModal from './routes/setup-modal';
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ const app = new App({
   socketMode: true,
 });
 
-homePage(app);
+homeApp(app);
+setupModal(app);
 
 (async () => {
     // Start the app
