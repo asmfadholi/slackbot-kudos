@@ -12,13 +12,13 @@ const setupPage = (app: App<StringIndexed>) => {
     
     app.action(OPEN_SETUP_EXISTING_CHANNEL, async ({ ack, client, body }) => {
         await ack();
-        const bodyData = body as { trigger_id: string, actions: { value: string }[], view: { id: string} };
+        const bodyData = body as { view: { id: string} };
         await client.views.update({ view: APP_SETUP_EXISTING_CHANNEL, view_id: bodyData.view.id });
     });
     
     app.action(OPEN_SETUP_NEW_CHANNEL, async ({ ack, client, body }) => {
         await ack();
-        const bodyData = body as { trigger_id: string, actions: { value: string }[], view: { id: string} };
+        const bodyData = body as { view: { id: string} };
         await client.views.update({ view: APP_SETUP_NEW_CHANNEL, view_id: bodyData.view.id });
     });
 }
