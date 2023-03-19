@@ -1,6 +1,5 @@
 import { App } from '@slack/bolt';
 import homePage from './pages/home';
-import setupPage from './pages/setup';
 
 const slackApptoken = 'xapp-1-A04UZ4C8ERX-4969656527861-e3d25526a535f70085a5c050efebab95ec2fd04263beb25e79ab34dbd240aa79';
 const slackSigningSecret = '24fcb70f11ef1019843226c294c00abd';
@@ -14,7 +13,6 @@ const app = new App({
 });
 
 homePage(app);
-setupPage(app);
 
 (async () => {
     // Start the app
