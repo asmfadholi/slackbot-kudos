@@ -12,9 +12,8 @@ const appMessages = (app: App<StringIndexed>) => {
 
         const getBotStartedMessages = result.messages?.filter(each => {
             const isBot = each.bot_id;
-            const isBlockUI =  Boolean(each.text?.includes(`This content can't be displayed.`));
             const isGetStartedMessage = (each.blocks?.filter(block => block?.block_id === 'section_welcome_get_started') || []).length > 0;
-            return isBot && isBlockUI && isGetStartedMessage;
+            return isBot && isGetStartedMessage;
         }) || [];
 
         const isFirstOpenApp = getBotStartedMessages.length < 1;
