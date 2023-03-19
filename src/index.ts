@@ -2,7 +2,7 @@ import { App } from '@slack/bolt';
 import * as dotenv from 'dotenv';
 
 // routes
-import homeApp from './routes/home';
+import appMessages from './routes/app-messages';
 import setupModal from './routes/setup-modal';
 
 dotenv.config();
@@ -18,7 +18,7 @@ const app = new App({
   socketMode: true,
 });
 
-homeApp(app);
+appMessages(app);
 setupModal(app);
 
 (async () => {

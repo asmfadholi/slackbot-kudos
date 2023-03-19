@@ -3,7 +3,7 @@ import { StringIndexed } from '@slack/bolt/dist/types/helpers';
 import { HOME_OPENED } from '../../constants/slackEvents';
 import { APP_MESSAGE_TAB } from './constants/homeBlockUI';
 
-const homeApp = (app: App<StringIndexed>) => {
+const appMessages = (app: App<StringIndexed>) => {
 
     app.event(HOME_OPENED, async ({ body, say, client }) => {
         const result = await client.conversations.history({
@@ -22,11 +22,11 @@ const homeApp = (app: App<StringIndexed>) => {
         const isTabMessage = tab === 'messages';
         const isTabHome = tab === 'home';
         if (isTabMessage && isFirstOpenApp) {
-            await say(APP_MESSAGE_TAB);
+            await say(APP_MESSAGE_TAB({ showButton: true }));
         } else if (isTabHome) {
             console.log('isTabHome');
         }
     });
 }
 
-export default homeApp;
+export default appMessages;
