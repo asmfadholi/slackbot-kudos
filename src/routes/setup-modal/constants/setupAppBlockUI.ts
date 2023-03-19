@@ -1,34 +1,6 @@
-import { SayArguments, View } from "@slack/bolt"
+import { View } from "@slack/bolt"
 import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_INIT, OPEN_SETUP_NEW_CHANNEL } from "../../../constants/slackActions";
 import { SUBMIT_SETUP_EXISTING_CHANNEL, SUBMIT_SETUP_NEW_CHANNEL } from "../../../constants/slackViews";
-
-export const APP_SETUP_MESSAGE = {
-    "blocks": [
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "*Welcome to Heykudo on Slack! 🎉* \n I'm Heykudo and I'm here to help you set up Heykudo. To get started, we'll need to add Heykudo to a Slack channel."
-            }
-        },
-        {
-            "type": "actions",
-            "elements": [
-                {
-                    "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "Get Started",
-                        "emoji": true
-                    },
-                    "style": "primary",
-                    "value": "open setup",
-                    "action_id": OPEN_SETUP_INIT
-                }
-            ], 
-        }
-    ]
-} as SayArguments;
 
 export const APP_SETUP_NEW_CHANNEL = {
 	"type": "modal",

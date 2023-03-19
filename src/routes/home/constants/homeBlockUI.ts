@@ -21,7 +21,6 @@ export const APP_MESSAGE_TAB = {
                         "emoji": true
                     },
                     "style": "primary",
-                    "value": "open setup",
                     "action_id": OPEN_SETUP_INIT
                 }
             ], 
