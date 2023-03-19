@@ -37,7 +37,6 @@ const setupModal = (app: App<StringIndexed>) => {
     });
 
     app.view(SUBMIT_SETUP_EXISTING_CHANNEL, async ({ ack, body, view, client }) => {
-        await ack();
         const stateValues =  body.view.state.values;
         const getChannelName = `#${stateValues?.channel?.channel_action?.selected_channel || ''}`;
         console.log('SUBMIT_EXISTING_CHANNEL', JSON.stringify(stateValues));
