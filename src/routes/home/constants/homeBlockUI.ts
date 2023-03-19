@@ -5,6 +5,7 @@ export const APP_MESSAGE_TAB = {
     "blocks": [
         {
             "type": "section",
+            "block_id": "section_welcome_get_started",
             "text": {
                 "type": "mrkdwn",
                 "text": "*Welcome to Heykudo on Slack! 🎉* \n I'm Heykudo and I'm here to help you set up Heykudo. To get started, we'll need to add Heykudo to a Slack channel."
