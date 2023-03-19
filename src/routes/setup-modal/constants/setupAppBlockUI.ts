@@ -2,9 +2,10 @@ import { View } from "@slack/bolt"
 import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_INIT, OPEN_SETUP_NEW_CHANNEL } from "../../../constants/slackActions";
 import { SUBMIT_SETUP_EXISTING_CHANNEL, SUBMIT_SETUP_NEW_CHANNEL } from "../../../constants/slackViews";
 
-export const APP_SETUP_NEW_CHANNEL = {
+export const APP_SETUP_NEW_CHANNEL = (channelId: string) => ({
 	"type": "modal",
 	"callback_id": SUBMIT_SETUP_NEW_CHANNEL,
+	
 	"title": {
 		"type": "plain_text",
 		"text": "Start Heykudo Channel",
@@ -77,10 +78,11 @@ export const APP_SETUP_NEW_CHANNEL = {
 				}
 			]
 		}
-	]
-} as View;
+	],
+	"private_metadata": channelId
+} as View);
 
-export const APP_SETUP_EXISTING_CHANNEL = {
+export const APP_SETUP_EXISTING_CHANNEL = (channelId: string) => ({
 	"title": {
 		"type": "plain_text",
 		"text": "Connect Existing Channel",
@@ -93,6 +95,7 @@ export const APP_SETUP_EXISTING_CHANNEL = {
 	},
 	"type": "modal",
 	"callback_id": SUBMIT_SETUP_EXISTING_CHANNEL,
+	"private_metadata": channelId,
 	"close": {
 		"type": "plain_text",
 		"text": "Cancel",
@@ -139,5 +142,41 @@ export const APP_SETUP_EXISTING_CHANNEL = {
 			]
 		}
 	]
-} as View;
+} as View);
+
+export const ONBOARDING_MESSAGE = (channelName: string) => {
+	return {
+		"blocks": [
+			{
+				"type": "section",
+				"text": {
+					"type": "mrkdwn",
+					"text": `Congrats! We are now connected to <${channelName}> \n Using Heykudo is easy 1-2-3: \n1️. What is Kudos \n 2. What is Feedback Friday \n 3. Give your first Kudo`
+				}
+			},
+			{
+				"type": "actions",
+				"elements": [
+					{
+						"type": "button",
+						"text": {
+							"type": "plain_text",
+							"text": "Start",
+							"emoji": true
+						},
+						"style": "primary"
+					},
+					{
+						"type": "button",
+						"text": {
+							"type": "plain_text",
+							"text": "Skip",
+							"emoji": true
+						}
+					}
+				]
+			}
+		]
+	} as View;
+} 
 
