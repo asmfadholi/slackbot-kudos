@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 // routes
 import appMessages from './routes/app-messages';
 import appOnboarding from './routes/app-onboarding';
-import giveKudos from './routes/give-kudos';
+import giveKudosModal from './routes/give-kudos-modal';
 import setupModal from './routes/setup-modal';
 
 dotenv.config();
@@ -22,8 +22,9 @@ const app = new App({
 
 appMessages(app);
 setupModal(app);
+giveKudosModal(app);
 appOnboarding(app);
-giveKudos(app);
+
 
 (async () => {
     // Start the app
