@@ -1,4 +1,5 @@
 import { View } from "@slack/bolt";
+import { OPEN_GIVE_KUDOS } from "../../../constants/slackActions";
 import { SUBMIT_GIVE_KUDOS } from "../../../constants/slackViews";
 
 export const GIVE_KUDOS_FORM = {
@@ -40,14 +41,15 @@ export const GIVE_KUDOS_FORM = {
 		},
 		{
 			"type": "input",
-            "block_id": "types",
+            "block_id": "type",
 			"element": {
-				"type": "multi_static_select",
+				"type": "static_select",
 				"placeholder": {
 					"type": "plain_text",
 					"text": "Select type",
 					"emoji": true
 				},
+				"action_id": "static_select-action",
 				"options": [
 					{
 						"text": {
@@ -74,7 +76,6 @@ export const GIVE_KUDOS_FORM = {
 						"value": "Impressive"
 					}
 				],
-				"action_id": "multi_static_select-action"
 			},
 			"label": {
 				"type": "plain_text",
@@ -153,3 +154,48 @@ export const GIVE_KUDOS_SUCCESS_SENT = {
 		}
 	]
 } as View;
+
+interface MessageKudosProps {
+	recipient: string;
+	sender: string;
+}
+
+export const MESSAGE_KUDOS = ({ recipient, sender }: MessageKudosProps) => {
+	return {
+		"blocks": [
+			{
+				"type": "section",
+				"text": {
+					"type": "plain_text",
+					"text": `<${recipient}> just received a Kudos from <${sender}>.`,
+					"emoji": true
+				}
+			},
+			{
+				"type": "image",
+				"title": {
+					"type": "plain_text",
+					"text": "kudos",
+					"emoji": true
+				},
+				"image_url": "https://i.ibb.co/BfpnxCT/Screenshot-2023-03-23-at-13-57-29.png",
+				"alt_text": "kudos-image"
+			},
+			{
+				"type": "actions",
+				"elements": [
+					{
+						"type": "button",
+						"text": {
+							"type": "plain_text",
+							"text": ":tada: Give Kudos to other members",
+							"emoji": true
+						},
+						"style": "primary",
+						"action_id": OPEN_GIVE_KUDOS
+					}
+				]
+			}
+		]
+	} as View;
+}
