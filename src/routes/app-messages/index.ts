@@ -2,7 +2,6 @@ import { App } from '@slack/bolt';
 import { StringIndexed } from '@slack/bolt/dist/types/helpers';
 import { HOME_OPENED } from '../../constants/slackEvents';
 import { APP_MESSAGE_TAB } from './constants/homeBlockUI';
-import { deleteAllChats } from './helpers/deleteAllChats';
 
 const appMessages = (app: App<StringIndexed>) => {
 
