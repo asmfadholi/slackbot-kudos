@@ -2,7 +2,6 @@ import { App } from '@slack/bolt';
 import { StringIndexed } from '@slack/bolt/dist/types/helpers';
 import { HOME_OPENED } from '../../constants/slackEvents';
 import { APP_MESSAGE_TAB } from './constants/homeBlockUI';
-import { deleteAllChats } from './helpers/deleteAllChats';
 
 const appMessages = (app: App<StringIndexed>) => {
 
@@ -10,8 +9,6 @@ const appMessages = (app: App<StringIndexed>) => {
         const result = await client.conversations.history({
             channel: body.event.channel,
         });
-
-        await deleteAllChats({ channel: body.event.channel, messages: result?.messages || [], chatDelete: client.chat.delete });
 
         const getBotStartedMessages = result.messages?.filter(each => {
             const isBot = each.bot_id;
