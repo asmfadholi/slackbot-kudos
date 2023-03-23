@@ -45,13 +45,14 @@ const appOnboarding = (app: App<StringIndexed>) => {
         await Promise.all([...handleRequests, ack()]);
     });
 
-    app.action(CLICK_SKIP_ONBOARDING_APPS, async ({ ack, body, client }) => {
-        const bodyData = body as { message: { ts: string }}
+    app.action(CLICK_SKIP_ONBOARDING_APPS, async ({ ack, body, client, payload }) => {
+        const bodyData = body as { message: { ts: string }};
+        const payloadData = payload as { value: string };
         const channelId = body?.channel?.id || '';
         const getTs = bodyData?.message?.ts || '';
 
         const handleRequests = [
-            client.chat.update({ ts: getTs, channel: channelId, ...ONBOARDING_MESSAGE({ channelName: `#${channelId}` , showButton: false }) }),
+            client.chat.update({ ts: getTs, channel: channelId, ...ONBOARDING_MESSAGE({ channelName: payloadData.value , showButton: false }) }),
             ack(),
         ];
 

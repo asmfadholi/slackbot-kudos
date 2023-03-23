@@ -29,7 +29,7 @@ const giveKudosModal = (app: App<StringIndexed>) => {
         const sendAllKudos = getDetailUserList.map(each => {
             const recipientName = each.user?.name || '';
             const recipientId = each.user?.id || '';
-            return client.chat.postMessage({ channel: isPublic ? 'C04UZ0EKA2D' : recipientId, ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, recipient: `@${recipientName}` }) })
+            return client.chat.postMessage({ channel: isPublic ? 'C04UZ0EKA2D' : recipientId, ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, recipient: `@${recipientName}`, isPrivate: true }) })
         });
 
         await Promise.all(sendAllKudos);

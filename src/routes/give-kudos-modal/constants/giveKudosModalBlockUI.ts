@@ -158,17 +158,17 @@ export const GIVE_KUDOS_SUCCESS_SENT = {
 interface MessageKudosProps {
 	recipient: string;
 	sender: string;
+	isPrivate?: boolean;
 }
 
-export const MESSAGE_KUDOS = ({ recipient, sender }: MessageKudosProps) => {
+export const MESSAGE_KUDOS = ({ recipient, sender, isPrivate }: MessageKudosProps) => {
 	return {
 		"blocks": [
 			{
 				"type": "section",
 				"text": {
-					"type": "plain_text",
-					"text": `<${recipient}> just received a Kudos from <${sender}>.`,
-					"emoji": true
+					"type": "mrkdwn",
+					"text": `${isPrivate ? 'You' : `<${recipient}>`} just received a Kudos from <${sender}>.`,
 				}
 			},
 			{
