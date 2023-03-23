@@ -1,5 +1,5 @@
 import { View } from "@slack/bolt"
-import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_NEW_CHANNEL } from "../../../constants/slackActions";
+import { OPEN_GIVE_KUDOS, OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_NEW_CHANNEL } from "../../../constants/slackActions";
 import { SUBMIT_SETUP_EXISTING_CHANNEL, SUBMIT_SETUP_NEW_CHANNEL } from "../../../constants/slackViews";
 
 export const APP_SETUP_NEW_CHANNEL = (channelId: string) => ({
@@ -143,6 +143,60 @@ export const APP_SETUP_EXISTING_CHANNEL = (channelId: string) => ({
 		}
 	]
 } as View);
+
+interface InitMessageProps {
+	slackbotId: string;
+	ownerName: string;
+}
+
+export const INIT_MESSAGE_IN_CHANNEL = ({ slackbotId, ownerName }: InitMessageProps) => {
+	return {
+		"blocks": [
+			{
+				"type": "section",
+				"text": {
+					"type": "plain_text",
+					"text": `Hey <${slackbotId}> here! :wave:`,
+					"emoji": true
+				},
+			},
+			{
+				"type": "section",
+				"text": {
+					"type": "plain_text",
+					"text": `I’m here to help you send Kudos (publicly) and feedback (privately) to your teammates. :trophy: \n To kick things off, let’s start by giving a big Kudos to <${ownerName}> for connecting us all here! :raised_hands:`,
+					"emoji": true
+				}
+			},
+			{
+				"type": "image",
+				"title": {
+					"type": "plain_text",
+					"text": "kudos",
+					"emoji": true
+				},
+				"image_url": "https://i.ibb.co/HCM8hTD/Screenshot-2023-03-23-at-10-47-33.png",
+				"alt_text": "kudos-image"
+			},
+			{
+				"type": "actions",
+				"elements": [
+					{
+						"type": "button",
+						"text": {
+							"type": "plain_text",
+							"text": ":tada: Give Kudos to other members",
+							"emoji": true
+						},
+						"style": "primary",
+						"value": "click_me_123",
+						"action_id": OPEN_GIVE_KUDOS
+					}
+				]
+			}
+		]
+	} as View;
+}
 
 
 

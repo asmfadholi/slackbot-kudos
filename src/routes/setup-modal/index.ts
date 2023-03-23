@@ -1,7 +1,7 @@
 import { App } from '@slack/bolt';
 import { StringIndexed } from '@slack/bolt/dist/types/helpers';
 import { OPEN_SETUP_EXISTING_CHANNEL, OPEN_SETUP_INIT, OPEN_SETUP_NEW_CHANNEL } from '../../constants/slackActions';
-import { APP_SETUP_NEW_CHANNEL, APP_SETUP_EXISTING_CHANNEL } from './constants/setupAppBlockUI';
+import { APP_SETUP_NEW_CHANNEL, APP_SETUP_EXISTING_CHANNEL, INIT_MESSAGE_IN_CHANNEL } from './constants/setupAppBlockUI';
 import { SUBMIT_SETUP_EXISTING_CHANNEL, SUBMIT_SETUP_NEW_CHANNEL } from '../../constants/slackViews';
 import { APP_MESSAGE_TAB } from '../app-messages/constants/homeBlockUI';
 import { ONBOARDING_MESSAGE } from '../app-onboarding/constants/onboardingBlockUI';
@@ -27,6 +27,19 @@ interface UserIDS {
 interface UserIDSAction {
     type:           string;
     selected_users: string[];
+}
+  
+interface FormInviteToChannel {
+    channel: Channel
+  }
+  
+interface Channel {
+    channel_action: ChannelAction
+}
+  
+interface ChannelAction {
+    type: string
+    selected_channel: string
 }
 
 const setupModal = (app: App<StringIndexed>) => {
@@ -57,18 +70,18 @@ const setupModal = (app: App<StringIndexed>) => {
     });
 
     // Views
-    app.view(SUBMIT_SETUP_NEW_CHANNEL, async ({ ack, body, view, client }) => {
+    app.view(SUBMIT_SETUP_NEW_CHANNEL, async ({ ack, body, view, client, context }) => {
         const stateValues =  body.view.state.values as unknown as FormCreateNewChannel;
         
         const getChannelName = stateValues?.channel_name?.channel_name_action?.value || '';
         const channelNameNoHash = getChannelName.replace('#', '');
-        console.log('SUBMIT_NEW_CHANNEL', JSON.stringify(body));
+        console.log(stateValues, 'SUBMIT_SETUP_NEW_CHANNEL');
 
         // create new channel
         const resCreateChannel = await client.conversations.create({ name: channelNameNoHash, is_private: false, });
 
         // send message congrats to bot app message
-        const sendMessageCongrats = client.chat.postMessage({ channel: view.private_metadata, ...ONBOARDING_MESSAGE({ channelName: `#${resCreateChannel.channel?.name || ''}`, showButton: true }) })
+        const sendMessageCongrats = client.chat.postMessage({ channel: view.private_metadata, ...ONBOARDING_MESSAGE({ channelName: `#${resCreateChannel.channel?.name || ''}`, showButton: true }) });
         
         // get history chat
         const getHistory = client.conversations.history({
@@ -93,24 +106,25 @@ const setupModal = (app: App<StringIndexed>) => {
             ack(),
         ]);
 
-        // TODO: action create channel, invite bot and invite users
-        // create new channel, invite bot and invite users
-
         // invite members to join
-        const currentUser = body.user.id;
-        const usersList = [...(stateValues?.user_ids?.user_ids_action?.selected_users || []), currentUser];
-        const resInviteToChannel = await client.conversations.invite({ channel: resCreateChannel.channel?.id || '', users: usersList.join(',') });
-        console.log(resInviteToChannel, 'resInviteToChannel');
+        const newChannel = resCreateChannel.channel?.id || '';
+        const currentUserId = body.user.id;
+        const usersList = [...(stateValues?.user_ids?.user_ids_action?.selected_users || []), currentUserId];
+        const resInviteUsersToChannel = await client.conversations.invite({ channel: resCreateChannel.channel?.id || '', users: usersList.join(',') });
+        console.log(resInviteUsersToChannel, 'resInviteUsersToChannel');
+
+        // send init message to new channel
+        const botId = context.botId || '';
+        const currentUserName = body.user.name;
+        const sendMessageInit = await client.chat.postMessage({ channel: newChannel, ...INIT_MESSAGE_IN_CHANNEL({ slackbotId: `@${botId}`, ownerName: currentUserName }) });
+        console.log(sendMessageInit, 'sendMessageInit');
 
     });
 
-    app.view(SUBMIT_SETUP_EXISTING_CHANNEL, async ({ ack, body, view, client }) => {
-        const stateValues =  body.view.state.values;
+    app.view(SUBMIT_SETUP_EXISTING_CHANNEL, async ({ ack, body, view, client, context }) => {
+        const stateValues =  body.view.state.values as unknown as FormInviteToChannel;
         const getChannelName = `#${stateValues?.channel?.channel_action?.selected_channel || ''}`;
-        console.log('SUBMIT_EXISTING_CHANNEL', JSON.stringify(stateValues));
-
-        // TODO: action invite bot to channel
-        // invite bot to existing channel
+        console.log(stateValues, 'SUBMIT_SETUP_EXISTING_CHANNEL');
 
         // send message congrats to bot app message
         const sendMessageCongrats = client.chat.postMessage({ channel: view.private_metadata, ...ONBOARDING_MESSAGE({ channelName: getChannelName, showButton: true }) })
@@ -136,6 +150,14 @@ const setupModal = (app: App<StringIndexed>) => {
             client.chat.update({ ts: detailStarted?.ts || '', channel: view.private_metadata, ...APP_MESSAGE_TAB({ showButton: false }) }),
             ack(),
         ]);
+
+        // send init message to new channel
+        const botId = context.botId || '';
+        const getChannel = stateValues.channel?.channel_action.selected_channel || '';
+        const currentUserName = body.user.name;
+       
+        const sendMessageInit = await client.chat.postMessage({ link_names: true, channel: getChannel, ...INIT_MESSAGE_IN_CHANNEL({ slackbotId: `@${botId}`, ownerName: `@${currentUserName}` }) });
+        console.log(sendMessageInit, 'sendMessageInit');
     });
 }
 
