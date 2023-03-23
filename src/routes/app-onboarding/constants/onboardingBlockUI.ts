@@ -8,7 +8,7 @@ export const ONBOARDING_MESSAGE = ({ channelName, showButton }: { channelName: s
 				"type": "section",
 				"text": {
 					"type": "mrkdwn",
-					"text": `Congrats! We are now connected to ${channelName} \n Using Heykudo is easy 1-2-3: \n1️. What is Kudos \n 2. What is Feedback Friday \n 3. Give your first Kudo`
+					"text": `Congrats! We are now connected to ${channelName} \n Using Heykudo is easy 1-2-3: \n:one: What is Kudos :purple_heart: \n :two: What is Feedback Friday :spiral_calendar_pad: \n :three: Give your first Kudo :tada:`
 				}
 			},
 			...(showButton ? [{
@@ -22,7 +22,7 @@ export const ONBOARDING_MESSAGE = ({ channelName, showButton }: { channelName: s
 							"emoji": true
 						},
 						"action_id": CLICK_NEXT_ONBOARDING_APPS,
-						"value": '0',
+						"value": channelName,
 						"style": "primary"
 					},
 					{
@@ -36,7 +36,7 @@ export const ONBOARDING_MESSAGE = ({ channelName, showButton }: { channelName: s
 					}
 				]
 			}]: [])
-		]
+		],
 	} as View;
 }
 
@@ -51,7 +51,7 @@ export const ONBOARDING_STEP1 = ({ showButton }: OnboardingStepProps) => ({
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": `*1. What is Kudos*`
+				"text": `*:one: What is Kudos :purple_heart:*`
 			}
 		},
 		{
@@ -88,7 +88,7 @@ export const ONBOARDING_STEP2 = ({ showButton }: OnboardingStepProps) => ({
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": `*2. What is Feedback Friday*`
+				"text": `*:two: What is Feedback Friday :spiral_calendar_pad:*`
 			}
 		},
 
@@ -133,7 +133,7 @@ export const ONBOARDING_STEP3 = ({ showButton }: OnboardingStepProps) => ({
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": `*3. Give your first Kudos*`
+				"text": `*:three:. Give your first Kudos :tada:*`
 			}
 		},
 		{

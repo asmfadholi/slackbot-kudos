@@ -155,9 +155,8 @@ export const INIT_MESSAGE_IN_CHANNEL = ({ slackbotId, ownerName }: InitMessagePr
 			{
 				"type": "section",
 				"text": {
-					"type": "plain_text",
+					"type": "mrkdwn",
 					"text": `Hey <${slackbotId}> here! :wave:`,
-					"emoji": true
 				},
 			},
 			{

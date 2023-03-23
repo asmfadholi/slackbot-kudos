@@ -123,11 +123,12 @@ const setupModal = (app: App<StringIndexed>) => {
 
     app.view(SUBMIT_SETUP_EXISTING_CHANNEL, async ({ ack, body, view, client, context }) => {
         const stateValues =  body.view.state.values as unknown as FormInviteToChannel;
-        const getChannelName = `#${stateValues?.channel?.channel_action?.selected_channel || ''}`;
+        const getChannelName = `${stateValues?.channel?.channel_action?.selected_channel || ''}`;
         console.log(stateValues, 'SUBMIT_SETUP_EXISTING_CHANNEL');
 
         // send message congrats to bot app message
-        const sendMessageCongrats = client.chat.postMessage({ channel: view.private_metadata, ...ONBOARDING_MESSAGE({ channelName: getChannelName, showButton: true }) })
+        const channelInfo = await client.conversations.info({ channel: getChannelName });
+        const sendMessageCongrats = client.chat.postMessage({ channel: view.private_metadata, ...ONBOARDING_MESSAGE({ channelName:  `#${channelInfo.channel?.name}`, showButton: true }) })
         
         // get history chat
         const getHistory = client.conversations.history({
@@ -152,7 +153,7 @@ const setupModal = (app: App<StringIndexed>) => {
         ]);
 
         // send init message to new channel
-        const botId = context.botId || '';
+        const botId = context.botUserId || '';
         const getChannel = stateValues.channel?.channel_action.selected_channel || '';
         const currentUserName = body.user.name;
        

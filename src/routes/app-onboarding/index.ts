@@ -12,7 +12,9 @@ const appOnboarding = (app: App<StringIndexed>) => {
         const getTs = bodyData?.message?.ts || '';
         
         const payloadData = payload as { value: string };
-        const currentStep = Number(payloadData?.value) as 0 | 1 | 2 | 3; 
+        const includeHash = payloadData?.value.includes('#');
+        const currentStep = Number(includeHash ? '0' : payloadData?.value) as 0 | 1 | 2 | 3; 
+        
         const nextStep = currentStep + 1;
 
         let handleRequests: Promise<unknown>[] = [];
@@ -21,7 +23,7 @@ const appOnboarding = (app: App<StringIndexed>) => {
             // remove button in current message
             // create new message onboarding
             handleRequests = [
-                client.chat.update({ ts: getTs, channel: channelId, ...ONBOARDING_MESSAGE({ channelName: `#${channelId}` , showButton: false }) }),
+                client.chat.update({ ts: getTs, channel: channelId, ...ONBOARDING_MESSAGE({ channelName: `${payloadData?.value}` , showButton: false }) }),
                 say(ONBOARDING_STEP1({ showButton: true }))
             ];
         } else if (nextStep === 2) {
