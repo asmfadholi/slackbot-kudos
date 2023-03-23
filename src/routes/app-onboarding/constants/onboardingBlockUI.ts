@@ -8,7 +8,7 @@ export const ONBOARDING_MESSAGE = ({ channelName, showButton }: { channelName: s
 				"type": "section",
 				"text": {
 					"type": "mrkdwn",
-					"text": `Congrats! We are now connected to <${channelName}> \n Using Heykudo is easy 1-2-3: \n1️. What is Kudos \n 2. What is Feedback Friday \n 3. Give your first Kudo`
+					"text": `Congrats! We are now connected to ${channelName} \n Using Heykudo is easy 1-2-3: \n1️. What is Kudos \n 2. What is Feedback Friday \n 3. Give your first Kudo`
 				}
 			},
 			...(showButton ? [{
