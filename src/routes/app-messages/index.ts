@@ -11,8 +11,6 @@ const appMessages = (app: App<StringIndexed>) => {
             channel: body.event.channel,
         });
 
-        await deleteAllChats({ channel: body.event.channel, messages: result?.messages || [], chatDelete: client.chat.delete });
-
         const getBotStartedMessages = result.messages?.filter(each => {
             const isBot = each.bot_id;
             const isGetStartedMessage = (each.blocks?.filter(block => block?.block_id === 'section_welcome_get_started') || []).length > 0;
