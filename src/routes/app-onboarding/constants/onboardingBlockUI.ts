@@ -133,7 +133,7 @@ export const ONBOARDING_STEP3 = ({ showButton }: OnboardingStepProps) => ({
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": `*:three:. Give your first Kudos :tada:*`
+				"text": `*:three: Give your first Kudos :tada:*`
 			}
 		},
 		{

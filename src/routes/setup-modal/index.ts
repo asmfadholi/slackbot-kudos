@@ -110,13 +110,13 @@ const setupModal = (app: App<StringIndexed>) => {
         const newChannel = resCreateChannel.channel?.id || '';
         const currentUserId = body.user.id;
         const usersList = [...(stateValues?.user_ids?.user_ids_action?.selected_users || []), currentUserId];
-        const resInviteUsersToChannel = await client.conversations.invite({ channel: resCreateChannel.channel?.id || '', users: usersList.join(',') });
+        const resInviteUsersToChannel = await client.conversations.invite({ channel: newChannel, users: usersList.join(',') });
         console.log(resInviteUsersToChannel, 'resInviteUsersToChannel');
 
         // send init message to new channel
-        const botId = context.botId || '';
+        const botId = context?.botUserId || '';
         const currentUserName = body.user.name;
-        const sendMessageInit = await client.chat.postMessage({ channel: newChannel, ...INIT_MESSAGE_IN_CHANNEL({ slackbotId: `@${botId}`, ownerName: currentUserName }) });
+        const sendMessageInit = await client.chat.postMessage({ channel: newChannel, ...INIT_MESSAGE_IN_CHANNEL({ slackbotId: `@${botId}`, ownerName: `@${currentUserName}` }) });
         console.log(sendMessageInit, 'sendMessageInit');
 
     });
