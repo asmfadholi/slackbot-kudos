@@ -32,6 +32,7 @@ export const ONBOARDING_MESSAGE = ({ channelName, showButton }: { channelName: s
 							"text": "Skip",
 							"emoji": true
 						},
+						"value": channelName,
 						"action_id": CLICK_SKIP_ONBOARDING_APPS,
 					}
 				]
