@@ -168,7 +168,7 @@ export const MESSAGE_KUDOS = ({ recipient, sender, isPrivate }: MessageKudosProp
 				"type": "section",
 				"text": {
 					"type": "mrkdwn",
-					"text": `${isPrivate ? 'You' : `<${recipient}>`} just received a Kudos from <${sender}>.`,
+					"text": `${isPrivate ? 'You' : recipient} just received a Kudos from <${sender}>.`,
 				}
 			},
 			{

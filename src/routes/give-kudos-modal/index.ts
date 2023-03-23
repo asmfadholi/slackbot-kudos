@@ -26,13 +26,20 @@ const giveKudosModal = (app: App<StringIndexed>) => {
         const usersList = stateValues.users['multi_users_select-action'].selected_users || [];
         const detailUserList = usersList.map(each => client.users.info({ user: each  }));
         const getDetailUserList =  await Promise.all(detailUserList);
-        const sendAllKudos = getDetailUserList.map(each => {
-            const recipientName = each.user?.name || '';
-            const recipientId = each.user?.id || '';
-            return client.chat.postMessage({ channel: isPublic ? 'C04UZ0EKA2D' : recipientId, ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, recipient: `@${recipientName}`, isPrivate: true }) })
-        });
+        if (isPublic) {
+            const recipients = getDetailUserList.map(each => `<@${each.user?.name}>`);
+            await client.chat.postMessage({ channel: 'C04UZ0EKA2D', ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, recipient: recipients.join(', ') }) })
+        } else {
+            const sendAllKudos = getDetailUserList.map(each => {
+                const recipientName = each.user?.name || '';
+                const recipientId = each.user?.id || '';
+                return client.chat.postMessage({ channel: recipientId, ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, recipient: `@${recipientName}`, isPrivate: true }) })
+            });
+            await Promise.all(sendAllKudos);
+        }
+       
 
-        await Promise.all(sendAllKudos);
+        
         
         const bodyData = body as { trigger_id: string };
         await Promise.all([
