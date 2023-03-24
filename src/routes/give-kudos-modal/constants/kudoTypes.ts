@@ -32,7 +32,7 @@ export const KUDO_TYPES = [
             "type": "plain_text",
             "text": "Collaborator",
         },
-        "value": " https://i.ibb.co/YPsCgg4/Coolaborator.gif"
+        "value": "https://i.ibb.co/YPsCgg4/Coolaborator.gif"
     },
     {
         "text": {

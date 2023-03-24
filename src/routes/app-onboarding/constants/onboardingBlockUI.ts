@@ -8,7 +8,7 @@ export const ONBOARDING_MESSAGE = ({ channelName, showButton }: { channelName: s
 				"type": "section",
 				"text": {
 					"type": "mrkdwn",
-					"text": `Congrats! We are now connected to ${channelName} \n Using Heykudo is easy 1-2-3: \n:one: What is Kudos :purple_heart: \n :two: What is Feedback Friday :spiral_calendar_pad: \n :three: Give your first Kudo :tada:`
+					"text": `Congrats! We are now connected to ${channelName} \nUsing Heykudo is easy 1-2-3: \n:one: What is Kudos :purple_heart: \n:two: What is Feedback Friday :spiral_calendar_pad: \n:three: Give your first Kudo :tada:`
 				}
 			},
 			...(showButton ? [{
@@ -59,7 +59,7 @@ export const ONBOARDING_STEP1 = ({ showButton }: OnboardingStepProps) => ({
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": `What is kudo? \n • Kudos are virtual cards used for team member recognition. Make your own custom Kudos around company values, inside jokes, and more!`
+				"text": `What is kudo? \n• Kudos are virtual cards used for team member recognition. Make your own custom Kudos around company values, inside jokes, and more!`
 			},
 			
 		},
@@ -105,8 +105,7 @@ export const ONBOARDING_STEP2 = ({ showButton }: OnboardingStepProps) => ({
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": `
-				Current Feedback Friday settings: \nOccurs [once every week] on [Friday]\nKicks off on [March 10] at [10AM JST]`
+				"text": `Current Feedback Friday settings: \nOccurs [once every week] on [Friday] \nKicks off on [March 10] at [10AM JST]`
 			}
 		},
 		...(showButton ? [{
