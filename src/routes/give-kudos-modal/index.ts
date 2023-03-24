@@ -21,6 +21,7 @@ const giveKudosModal = (app: App<StringIndexed>) => {
         console.log('SUBMIT_GIVE_KUDOS', JSON.stringify(stateValues));
 
         // send kudos to users
+        const imageUrl = stateValues.type['static_select-action'].selected_option.value || '';
         const isPublic = stateValues.visibility['radio_buttons-action'].selected_option.value === 'public';
         const currentUserName = body.user.name;
         const usersList = stateValues.users['multi_users_select-action'].selected_users || [];
@@ -28,12 +29,12 @@ const giveKudosModal = (app: App<StringIndexed>) => {
         const getDetailUserList =  await Promise.all(detailUserList);
         if (isPublic) {
             const recipients = getDetailUserList.map(each => `<@${each.user?.name}>`);
-            await client.chat.postMessage({ channel: 'C04UZ0EKA2D', ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, recipient: recipients.join(', ') }) })
+            await client.chat.postMessage({ channel: 'C04UZ0EKA2D', ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, recipient: recipients.join(', '), imageUrl }) })
         } else {
             const sendAllKudos = getDetailUserList.map(each => {
                 const recipientName = each.user?.name || '';
                 const recipientId = each.user?.id || '';
-                return client.chat.postMessage({ channel: recipientId, ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, recipient: `@${recipientName}`, isPrivate: true }) })
+                return client.chat.postMessage({ channel: recipientId, ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, isPrivate: true, imageUrl }) })
             });
             await Promise.all(sendAllKudos);
         }

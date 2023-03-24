@@ -1,6 +1,7 @@
 import { View } from "@slack/bolt";
 import { OPEN_GIVE_KUDOS } from "../../../constants/slackActions";
 import { SUBMIT_GIVE_KUDOS } from "../../../constants/slackViews";
+import { KUDO_TYPES } from "./kudoTypes";
 
 export const GIVE_KUDOS_FORM = {
 	"type": "modal",
@@ -50,32 +51,7 @@ export const GIVE_KUDOS_FORM = {
 					"emoji": true
 				},
 				"action_id": "static_select-action",
-				"options": [
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "Amazing job",
-							"emoji": true
-						},
-						"value": "Amazing job"
-					},
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "Cheers",
-							"emoji": true
-						},
-						"value": "Cheers"
-					},
-					{
-						"text": {
-							"type": "plain_text",
-							"text": "Impressive",
-							"emoji": true
-						},
-						"value": "Impressive"
-					}
-				],
+				"options": KUDO_TYPES,
 			},
 			"label": {
 				"type": "plain_text",
@@ -156,12 +132,13 @@ export const GIVE_KUDOS_SUCCESS_SENT = {
 } as View;
 
 interface MessageKudosProps {
-	recipient: string;
+	recipient?: string;
 	sender: string;
 	isPrivate?: boolean;
+	imageUrl: string;
 }
 
-export const MESSAGE_KUDOS = ({ recipient, sender, isPrivate }: MessageKudosProps) => {
+export const MESSAGE_KUDOS = ({ recipient, sender, isPrivate, imageUrl }: MessageKudosProps) => {
 	return {
 		"blocks": [
 			{
@@ -178,7 +155,7 @@ export const MESSAGE_KUDOS = ({ recipient, sender, isPrivate }: MessageKudosProp
 					"text": "kudos",
 					"emoji": true
 				},
-				"image_url": "https://i.ibb.co/BfpnxCT/Screenshot-2023-03-23-at-13-57-29.png",
+				"image_url": imageUrl,
 				"alt_text": "kudos-image"
 			},
 			{
