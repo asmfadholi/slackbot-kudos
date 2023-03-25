@@ -32,7 +32,6 @@ const giveKudosModal = (app: App<StringIndexed>) => {
             await client.chat.postMessage({ channel: 'C04UZ0EKA2D', ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, recipient: recipients.join(', '), imageUrl }) })
         } else {
             const sendAllKudos = getDetailUserList.map(each => {
-                const recipientName = each.user?.name || '';
                 const recipientId = each.user?.id || '';
                 return client.chat.postMessage({ channel: recipientId, ...MESSAGE_KUDOS({ sender: `@${currentUserName}`, isPrivate: true, imageUrl }) })
             });
