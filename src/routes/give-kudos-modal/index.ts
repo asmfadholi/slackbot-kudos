@@ -38,9 +38,6 @@ const giveKudosModal = (app: App<StringIndexed>) => {
             await Promise.all(sendAllKudos);
         }
        
-
-        
-        
         const bodyData = body as { trigger_id: string };
         await Promise.all([
             client.views.open({ view: GIVE_KUDOS_SUCCESS_SENT, "trigger_id": bodyData.trigger_id}),
