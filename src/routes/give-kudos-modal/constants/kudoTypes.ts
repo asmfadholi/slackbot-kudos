@@ -4,62 +4,62 @@ export const KUDO_TYPES = [
             "type": "plain_text",
             "text": "Thank You",
         },
-        "value": "https://i.ibb.co/4gbscpx/Thank-you.gif"
+        "value": "https://i.ibb.co/5s9JgNq/Thank-you.gif"
     },
     {
         "text": {
             "type": "plain_text",
             "text": "A+ Analyst",
         },
-        "value": "https://i.ibb.co/cwJPLPG/A-Analyst.gif"
+        "value": "https://i.ibb.co/NjCB1WG/A-Analyst.gif"
     },
     {
         "text": {
             "type": "plain_text",
             "text": "Best Mentor",
         },
-        "value": "https://i.ibb.co/nwDNwFg/Best-Mentor.gif"
+        "value": "https://i.ibb.co/gwM43fx/Best-Mentor.gif"
     },
     {
         "text": {
             "type": "plain_text",
             "text": "Comm-rade",
         },
-        "value": "https://i.ibb.co/pr1NbxQ/Comm-rade.gif"
+        "value": "https://i.ibb.co/g92wVQY/Comm-rade.gif"
     },
     {
         "text": {
             "type": "plain_text",
             "text": "Collaborator",
         },
-        "value": "https://i.ibb.co/YPsCgg4/Coolaborator.gif"
+        "value": "https://i.ibb.co/dBp0KDC/Coolaborator.gif"
     },
     {
         "text": {
             "type": "plain_text",
             "text": "Extra Mile Sailor",
         },
-        "value": "https://i.ibb.co/zFST96P/Extra-Mile-Sailer.gif"
+        "value": "https://i.ibb.co/yfgBgp5/Extra-Mile-Sailer.gif"
     },
     {
         "text": {
             "type": "plain_text",
             "text": "Inspiring Leader",
         },
-        "value": "https://i.ibb.co/92b5tgy/Inspiring-Leader.gif"
+        "value": "https://i.ibb.co/VvMKWKM/Inspiring-Leader.gif"
     },
     {
         "text": {
             "type": "plain_text",
             "text": "One Team",
         },
-        "value": "https://i.ibb.co/g3XsNCH/One-Team.gif"
+        "value": "https://i.ibb.co/PgzbDF0/One-Team.gif"
     },
     {
         "text": {
             "type": "plain_text",
             "text": "Walking Sunshine",
         },
-        "value": "https://i.ibb.co/343MFPS/Walking-Sunshine.gif"
+        "value": "https://i.ibb.co/KDRdbt0/Walking-Sunshine.gif"
     },
 ]
