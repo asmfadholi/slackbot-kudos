@@ -4,7 +4,7 @@ FROM node:14.19.1
 # Change the working directory on the Docker image to /app
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the /app directory
+# Copy package.json and yarn.lock to the /app directory
 COPY package.json yarn.lock ./
 
 # Install dependencies
