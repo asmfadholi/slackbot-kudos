@@ -13,6 +13,9 @@ RUN yarn install
 # Copy the rest of project files into this image
 COPY . .
 
+# generate env
+RUN yarn generate-env
+
 # build project
 RUN yarn build
 
