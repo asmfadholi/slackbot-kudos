@@ -29,6 +29,9 @@ appOnboarding(app);
 
 (async () => {
     // Start the app
+    console.log(slackApptoken, 'slackApptoken');
+    console.log(slackSigningSecret, 'slackSigningSecret');
+    console.log(slackAppBotToken, 'slackAppBotToken');
     await app.start(process.env.PORT || 3000);
   
     console.log('⚡️ Bolt app is running!');
