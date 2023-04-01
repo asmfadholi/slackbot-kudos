@@ -32,7 +32,9 @@ appOnboarding(app);
     console.log(slackApptoken, 'slackApptoken');
     console.log(slackSigningSecret, 'slackSigningSecret');
     console.log(slackAppBotToken, 'slackAppBotToken');
-    await app.start(process.env.PORT || 3000);
+    const PORT = process.env.PORT;
+    await app.start(PORT || 3000);
+    console.log(PORT)
   
     console.log('⚡️ Bolt app is running!');
 })();
