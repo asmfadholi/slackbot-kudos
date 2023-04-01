@@ -34,7 +34,7 @@ appOnboarding(app);
     console.log(slackAppBotToken, 'slackAppBotToken');
     const PORT = process.env.PORT;
     await app.start(PORT || 3000);
-    console.log(PORT)
+    console.log(PORT, 'PORT');
   
     console.log('⚡️ Bolt app is running!');
 })();
