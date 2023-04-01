@@ -13,10 +13,6 @@ RUN yarn install
 # Copy the rest of project files into this image
 COPY . .
 
-ENV SLACK_APP_TOKEN=$slack_app_token
-ENV SLACK_SIGNIN_SECRET=$slack_signin_secret
-ENV SLACK_APP_BOT_TOKEN=$slack_app_bot_token
-
 # build project
 RUN yarn build
 
